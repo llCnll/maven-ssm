@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ContestMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Contest" >
+    <id column="num" property="num" jdbcType="INTEGER" />
+    <result column="typenum" property="typenum" jdbcType="INTEGER" />
+    <result column="actitytime" property="actitytime" jdbcType="VARCHAR" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="rank" property="rank" jdbcType="VARCHAR" />
+    <result column="cachet" property="cachet" jdbcType="VARCHAR" />
+    <result column="booktime" property="booktime" jdbcType="VARCHAR" />
+    <result column="member" property="member" jdbcType="VARCHAR" />
+    <result column="teachernum" property="teachernum" jdbcType="VARCHAR" />
+    <result column="stunum" property="stunum" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="REAL" />
+    <result column="facultynum" property="facultynum" jdbcType="INTEGER" />
+    <result column="majornum" property="majornum" jdbcType="INTEGER" />
+    <result column="gradenum" property="gradenum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    num, typenum, actitytime, theme, level, rank, cachet, booktime, member, teachernum, 
+    stunum, credit, facultynum, majornum, gradenum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="pojo.ContestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contest
+    where num = #{num,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contest
+    where num = #{num,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.ContestExample" >
+    delete from contest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Contest" >
+    insert into contest (num, typenum, actitytime, 
+      theme, level, rank, 
+      cachet, booktime, member, 
+      teachernum, stunum, credit, 
+      facultynum, majornum, gradenum
+      )
+    values (#{num,jdbcType=INTEGER}, #{typenum,jdbcType=INTEGER}, #{actitytime,jdbcType=VARCHAR}, 
+      #{theme,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{rank,jdbcType=VARCHAR}, 
+      #{cachet,jdbcType=VARCHAR}, #{booktime,jdbcType=VARCHAR}, #{member,jdbcType=VARCHAR}, 
+      #{teachernum,jdbcType=VARCHAR}, #{stunum,jdbcType=VARCHAR}, #{credit,jdbcType=REAL}, 
+      #{facultynum,jdbcType=INTEGER}, #{majornum,jdbcType=INTEGER}, #{gradenum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Contest" >
+    insert into contest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="typenum != null" >
+        typenum,
+      </if>
+      <if test="actitytime != null" >
+        actitytime,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="rank != null" >
+        rank,
+      </if>
+      <if test="cachet != null" >
+        cachet,
+      </if>
+      <if test="booktime != null" >
+        booktime,
+      </if>
+      <if test="member != null" >
+        member,
+      </if>
+      <if test="teachernum != null" >
+        teachernum,
+      </if>
+      <if test="stunum != null" >
+        stunum,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="facultynum != null" >
+        facultynum,
+      </if>
+      <if test="majornum != null" >
+        majornum,
+      </if>
+      <if test="gradenum != null" >
+        gradenum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="typenum != null" >
+        #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="actitytime != null" >
+        #{actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="cachet != null" >
+        #{cachet,jdbcType=VARCHAR},
+      </if>
+      <if test="booktime != null" >
+        #{booktime,jdbcType=VARCHAR},
+      </if>
+      <if test="member != null" >
+        #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="teachernum != null" >
+        #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="stunum != null" >
+        #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        #{gradenum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.ContestExample" resultType="java.lang.Integer" >
+    select count(*) from contest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contest
+    <set >
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.typenum != null" >
+        typenum = #{record.typenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.actitytime != null" >
+        actitytime = #{record.actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.theme != null" >
+        theme = #{record.theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null" >
+        rank = #{record.rank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cachet != null" >
+        cachet = #{record.cachet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.booktime != null" >
+        booktime = #{record.booktime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.member != null" >
+        member = #{record.member,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachernum != null" >
+        teachernum = #{record.teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stunum != null" >
+        stunum = #{record.stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=REAL},
+      </if>
+      <if test="record.facultynum != null" >
+        facultynum = #{record.facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="record.majornum != null" >
+        majornum = #{record.majornum,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradenum != null" >
+        gradenum = #{record.gradenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contest
+    set num = #{record.num,jdbcType=INTEGER},
+      typenum = #{record.typenum,jdbcType=INTEGER},
+      actitytime = #{record.actitytime,jdbcType=VARCHAR},
+      theme = #{record.theme,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      rank = #{record.rank,jdbcType=VARCHAR},
+      cachet = #{record.cachet,jdbcType=VARCHAR},
+      booktime = #{record.booktime,jdbcType=VARCHAR},
+      member = #{record.member,jdbcType=VARCHAR},
+      teachernum = #{record.teachernum,jdbcType=VARCHAR},
+      stunum = #{record.stunum,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=REAL},
+      facultynum = #{record.facultynum,jdbcType=INTEGER},
+      majornum = #{record.majornum,jdbcType=INTEGER},
+      gradenum = #{record.gradenum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Contest" >
+    update contest
+    <set >
+      <if test="typenum != null" >
+        typenum = #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="actitytime != null" >
+        actitytime = #{actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null" >
+        rank = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="cachet != null" >
+        cachet = #{cachet,jdbcType=VARCHAR},
+      </if>
+      <if test="booktime != null" >
+        booktime = #{booktime,jdbcType=VARCHAR},
+      </if>
+      <if test="member != null" >
+        member = #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="teachernum != null" >
+        teachernum = #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="stunum != null" >
+        stunum = #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        facultynum = #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        majornum = #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        gradenum = #{gradenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Contest" >
+    update contest
+    set typenum = #{typenum,jdbcType=INTEGER},
+      actitytime = #{actitytime,jdbcType=VARCHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=VARCHAR},
+      cachet = #{cachet,jdbcType=VARCHAR},
+      booktime = #{booktime,jdbcType=VARCHAR},
+      member = #{member,jdbcType=VARCHAR},
+      teachernum = #{teachernum,jdbcType=VARCHAR},
+      stunum = #{stunum,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=REAL},
+      facultynum = #{facultynum,jdbcType=INTEGER},
+      majornum = #{majornum,jdbcType=INTEGER},
+      gradenum = #{gradenum,jdbcType=INTEGER}
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+</mapper>

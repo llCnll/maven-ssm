@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.SafetyMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Safety" >
+    <id column="num" property="num" jdbcType="INTEGER" />
+    <result column="typenum" property="typenum" jdbcType="INTEGER" />
+    <result column="gettime" property="gettime" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="teacehernum" property="teacehernum" jdbcType="INTEGER" />
+    <result column="member" property="member" jdbcType="VARCHAR" />
+    <result column="stunum" property="stunum" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="REAL" />
+    <result column="facultynum" property="facultynum" jdbcType="INTEGER" />
+    <result column="majornum" property="majornum" jdbcType="INTEGER" />
+    <result column="gradenum" property="gradenum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    num, typenum, gettime, level, teacehernum, member, stunum, credit, facultynum, majornum, 
+    gradenum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="pojo.SafetyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from safety
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from safety
+    where num = #{num,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from safety
+    where num = #{num,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.SafetyExample" >
+    delete from safety
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Safety" >
+    insert into safety (num, typenum, gettime, 
+      level, teacehernum, member, 
+      stunum, credit, facultynum, 
+      majornum, gradenum)
+    values (#{num,jdbcType=INTEGER}, #{typenum,jdbcType=INTEGER}, #{gettime,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{teacehernum,jdbcType=INTEGER}, #{member,jdbcType=VARCHAR}, 
+      #{stunum,jdbcType=VARCHAR}, #{credit,jdbcType=REAL}, #{facultynum,jdbcType=INTEGER}, 
+      #{majornum,jdbcType=INTEGER}, #{gradenum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Safety" >
+    insert into safety
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="typenum != null" >
+        typenum,
+      </if>
+      <if test="gettime != null" >
+        gettime,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="teacehernum != null" >
+        teacehernum,
+      </if>
+      <if test="member != null" >
+        member,
+      </if>
+      <if test="stunum != null" >
+        stunum,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="facultynum != null" >
+        facultynum,
+      </if>
+      <if test="majornum != null" >
+        majornum,
+      </if>
+      <if test="gradenum != null" >
+        gradenum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="typenum != null" >
+        #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null" >
+        #{gettime,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="teacehernum != null" >
+        #{teacehernum,jdbcType=INTEGER},
+      </if>
+      <if test="member != null" >
+        #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="stunum != null" >
+        #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        #{gradenum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.SafetyExample" resultType="java.lang.Integer" >
+    select count(*) from safety
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update safety
+    <set >
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.typenum != null" >
+        typenum = #{record.typenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.gettime != null" >
+        gettime = #{record.gettime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacehernum != null" >
+        teacehernum = #{record.teacehernum,jdbcType=INTEGER},
+      </if>
+      <if test="record.member != null" >
+        member = #{record.member,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stunum != null" >
+        stunum = #{record.stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=REAL},
+      </if>
+      <if test="record.facultynum != null" >
+        facultynum = #{record.facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="record.majornum != null" >
+        majornum = #{record.majornum,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradenum != null" >
+        gradenum = #{record.gradenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update safety
+    set num = #{record.num,jdbcType=INTEGER},
+      typenum = #{record.typenum,jdbcType=INTEGER},
+      gettime = #{record.gettime,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      teacehernum = #{record.teacehernum,jdbcType=INTEGER},
+      member = #{record.member,jdbcType=VARCHAR},
+      stunum = #{record.stunum,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=REAL},
+      facultynum = #{record.facultynum,jdbcType=INTEGER},
+      majornum = #{record.majornum,jdbcType=INTEGER},
+      gradenum = #{record.gradenum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Safety" >
+    update safety
+    <set >
+      <if test="typenum != null" >
+        typenum = #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="gettime != null" >
+        gettime = #{gettime,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="teacehernum != null" >
+        teacehernum = #{teacehernum,jdbcType=INTEGER},
+      </if>
+      <if test="member != null" >
+        member = #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="stunum != null" >
+        stunum = #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        facultynum = #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        majornum = #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        gradenum = #{gradenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Safety" >
+    update safety
+    set typenum = #{typenum,jdbcType=INTEGER},
+      gettime = #{gettime,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      teacehernum = #{teacehernum,jdbcType=INTEGER},
+      member = #{member,jdbcType=VARCHAR},
+      stunum = #{stunum,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=REAL},
+      facultynum = #{facultynum,jdbcType=INTEGER},
+      majornum = #{majornum,jdbcType=INTEGER},
+      gradenum = #{gradenum,jdbcType=INTEGER}
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+</mapper>

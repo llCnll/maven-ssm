@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Student" >
+    <id column="num" property="num" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="facultynum" property="facultynum" jdbcType="VARCHAR" />
+    <result column="majorum" property="majorum" jdbcType="VARCHAR" />
+    <result column="gradenum" property="gradenum" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="bankcard" property="bankcard" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    num, name, id, facultynum, majorum, gradenum, telphone, pwd, status, role, bankcard, 
+    password
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="pojo.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where num = #{num,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student
+    where num = #{num,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Student" >
+    insert into student (num, name, id, 
+      facultynum, majorum, gradenum, 
+      telphone, pwd, status, 
+      role, bankcard, password
+      )
+    values (#{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, 
+      #{facultynum,jdbcType=VARCHAR}, #{majorum,jdbcType=VARCHAR}, #{gradenum,jdbcType=VARCHAR}, 
+      #{telphone,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{role,jdbcType=INTEGER}, #{bankcard,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="facultynum != null" >
+        facultynum,
+      </if>
+      <if test="majorum != null" >
+        majorum,
+      </if>
+      <if test="gradenum != null" >
+        gradenum,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="bankcard != null" >
+        bankcard,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="facultynum != null" >
+        #{facultynum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorum != null" >
+        #{majorum,jdbcType=VARCHAR},
+      </if>
+      <if test="gradenum != null" >
+        #{gradenum,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="bankcard != null" >
+        #{bankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.facultynum != null" >
+        facultynum = #{record.facultynum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorum != null" >
+        majorum = #{record.majorum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradenum != null" >
+        gradenum = #{record.gradenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telphone != null" >
+        telphone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null" >
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankcard != null" >
+        bankcard = #{record.bankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set num = #{record.num,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      facultynum = #{record.facultynum,jdbcType=VARCHAR},
+      majorum = #{record.majorum,jdbcType=VARCHAR},
+      gradenum = #{record.gradenum,jdbcType=VARCHAR},
+      telphone = #{record.telphone,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=INTEGER},
+      bankcard = #{record.bankcard,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Student" >
+    update student
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="facultynum != null" >
+        facultynum = #{facultynum,jdbcType=VARCHAR},
+      </if>
+      <if test="majorum != null" >
+        majorum = #{majorum,jdbcType=VARCHAR},
+      </if>
+      <if test="gradenum != null" >
+        gradenum = #{gradenum,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="bankcard != null" >
+        bankcard = #{bankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where num = #{num,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Student" >
+    update student
+    set name = #{name,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      facultynum = #{facultynum,jdbcType=VARCHAR},
+      majorum = #{majorum,jdbcType=VARCHAR},
+      gradenum = #{gradenum,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      role = #{role,jdbcType=INTEGER},
+      bankcard = #{bankcard,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where num = #{num,jdbcType=VARCHAR}
+  </update>
+</mapper>

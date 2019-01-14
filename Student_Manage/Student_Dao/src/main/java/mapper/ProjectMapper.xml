@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="pojo.Project" >
+    <id column="num" property="num" jdbcType="INTEGER" />
+    <result column="typenum" property="typenum" jdbcType="INTEGER" />
+    <result column="actitytime" property="actitytime" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="member" property="member" jdbcType="VARCHAR" />
+    <result column="teachernum" property="teachernum" jdbcType="INTEGER" />
+    <result column="stunum" property="stunum" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="REAL" />
+    <result column="facultynum" property="facultynum" jdbcType="INTEGER" />
+    <result column="majornum" property="majornum" jdbcType="INTEGER" />
+    <result column="gradenum" property="gradenum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="pojo.Project" extends="BaseResultMap" >
+    <result column="type" property="type" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    num, typenum, actitytime, id, name, level, score, member, teachernum, stunum, credit, 
+    facultynum, majornum, gradenum
+  </sql>
+  <sql id="Blob_Column_List" >
+    type
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="pojo.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="pojo.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    where num = #{num,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where num = #{num,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="pojo.ProjectExample" >
+    delete from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pojo.Project" >
+    insert into project (num, typenum, actitytime, 
+      id, name, level, score, 
+      member, teachernum, stunum, 
+      credit, facultynum, majornum, 
+      gradenum, type)
+    values (#{num,jdbcType=INTEGER}, #{typenum,jdbcType=INTEGER}, #{actitytime,jdbcType=VARCHAR}, 
+      #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{member,jdbcType=VARCHAR}, #{teachernum,jdbcType=INTEGER}, #{stunum,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=REAL}, #{facultynum,jdbcType=INTEGER}, #{majornum,jdbcType=INTEGER}, 
+      #{gradenum,jdbcType=INTEGER}, #{type,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="typenum != null" >
+        typenum,
+      </if>
+      <if test="actitytime != null" >
+        actitytime,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="member != null" >
+        member,
+      </if>
+      <if test="teachernum != null" >
+        teachernum,
+      </if>
+      <if test="stunum != null" >
+        stunum,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="facultynum != null" >
+        facultynum,
+      </if>
+      <if test="majornum != null" >
+        majornum,
+      </if>
+      <if test="gradenum != null" >
+        gradenum,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="typenum != null" >
+        #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="actitytime != null" >
+        #{actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="member != null" >
+        #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="teachernum != null" >
+        #{teachernum,jdbcType=INTEGER},
+      </if>
+      <if test="stunum != null" >
+        #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        #{gradenum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pojo.ProjectExample" resultType="java.lang.Integer" >
+    select count(*) from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project
+    <set >
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.typenum != null" >
+        typenum = #{record.typenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.actitytime != null" >
+        actitytime = #{record.actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.member != null" >
+        member = #{record.member,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachernum != null" >
+        teachernum = #{record.teachernum,jdbcType=INTEGER},
+      </if>
+      <if test="record.stunum != null" >
+        stunum = #{record.stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=REAL},
+      </if>
+      <if test="record.facultynum != null" >
+        facultynum = #{record.facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="record.majornum != null" >
+        majornum = #{record.majornum,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradenum != null" >
+        gradenum = #{record.gradenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update project
+    set num = #{record.num,jdbcType=INTEGER},
+      typenum = #{record.typenum,jdbcType=INTEGER},
+      actitytime = #{record.actitytime,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      member = #{record.member,jdbcType=VARCHAR},
+      teachernum = #{record.teachernum,jdbcType=INTEGER},
+      stunum = #{record.stunum,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=REAL},
+      facultynum = #{record.facultynum,jdbcType=INTEGER},
+      majornum = #{record.majornum,jdbcType=INTEGER},
+      gradenum = #{record.gradenum,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project
+    set num = #{record.num,jdbcType=INTEGER},
+      typenum = #{record.typenum,jdbcType=INTEGER},
+      actitytime = #{record.actitytime,jdbcType=VARCHAR},
+      id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      member = #{record.member,jdbcType=VARCHAR},
+      teachernum = #{record.teachernum,jdbcType=INTEGER},
+      stunum = #{record.stunum,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=REAL},
+      facultynum = #{record.facultynum,jdbcType=INTEGER},
+      majornum = #{record.majornum,jdbcType=INTEGER},
+      gradenum = #{record.gradenum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Project" >
+    update project
+    <set >
+      <if test="typenum != null" >
+        typenum = #{typenum,jdbcType=INTEGER},
+      </if>
+      <if test="actitytime != null" >
+        actitytime = #{actitytime,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="member != null" >
+        member = #{member,jdbcType=VARCHAR},
+      </if>
+      <if test="teachernum != null" >
+        teachernum = #{teachernum,jdbcType=INTEGER},
+      </if>
+      <if test="stunum != null" >
+        stunum = #{stunum,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=REAL},
+      </if>
+      <if test="facultynum != null" >
+        facultynum = #{facultynum,jdbcType=INTEGER},
+      </if>
+      <if test="majornum != null" >
+        majornum = #{majornum,jdbcType=INTEGER},
+      </if>
+      <if test="gradenum != null" >
+        gradenum = #{gradenum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="pojo.Project" >
+    update project
+    set typenum = #{typenum,jdbcType=INTEGER},
+      actitytime = #{actitytime,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      member = #{member,jdbcType=VARCHAR},
+      teachernum = #{teachernum,jdbcType=INTEGER},
+      stunum = #{stunum,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=REAL},
+      facultynum = #{facultynum,jdbcType=INTEGER},
+      majornum = #{majornum,jdbcType=INTEGER},
+      gradenum = #{gradenum,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARBINARY}
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Project" >
+    update project
+    set typenum = #{typenum,jdbcType=INTEGER},
+      actitytime = #{actitytime,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      member = #{member,jdbcType=VARCHAR},
+      teachernum = #{teachernum,jdbcType=INTEGER},
+      stunum = #{stunum,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=REAL},
+      facultynum = #{facultynum,jdbcType=INTEGER},
+      majornum = #{majornum,jdbcType=INTEGER},
+      gradenum = #{gradenum,jdbcType=INTEGER}
+    where num = #{num,jdbcType=INTEGER}
+  </update>
+</mapper>
